@@ -58,16 +58,35 @@
               {{Auth::user()->name}}
             @endif
           </span>
+
+          <!--
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
             Profile
             <span class="float-right text-muted text-sm"><i class="fas fa-user"></i></span>
           </a>
+        -->
+
+          <div class="dropdown-divider"></div>
+          <button type="button" class="btn btn-block btn-default disabled">
+            <span class="float-left">Profile</span>
+            <span class="float-right text-muted text-sm"><i class="fas fa-user"></i></span>
+          </button>
+
+          <!--
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
             Setting
             <span class="float-right text-muted text-sm"><i class="fas fa-wrench"></i></span>
           </a>
+        -->
+
+          <div class="dropdown-divider"></div>
+          <button type="button" class="btn btn-block btn-default disabled">
+            <span class="float-left">Setting</span>
+            <span class="float-right text-muted text-sm"><i class="fas fa-wrench"></i></span>
+          </button>
+
           <div class="dropdown-divider"></div>
           <form action="{{route("logout")}}" method="POST">
               @csrf

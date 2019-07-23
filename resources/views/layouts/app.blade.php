@@ -9,7 +9,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>Kuliah Pengganti</title>
+  <title>Kuliah Pengganti | @yield('title')</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{ asset('lte/plugins/fontawesome-free/css/all.min.css') }}">
@@ -17,6 +17,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('lte/dist/css/adminlte.min.css') }}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  <link href="{{ asset('lte/dist/img/penggantiLogo.png') }}" rel="SHORTCUT ICON" />
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -55,5 +57,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('lte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('lte/dist/js/adminlte.min.js') }}"></script>
+@yield('script')
 </body>
 </html>
