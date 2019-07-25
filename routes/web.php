@@ -27,10 +27,19 @@ Route::match(["GET", "POST"], "/register", function(){
     return redirect("/login");
 })->name("register"); 
 
-Route::get('/jadwal', 'JadwalController@index');
-Route::get('/jadwal/export_excel', 'JadwalController@export_excel');
 
+Route::get('/jadwal/export_excel', 'JadwalController@export_excel');
 Route::post('/jadwal/import_excel', 'JadwalController@import_excel');
+
 Route::get('/laravel_google_chart', 'LaravelGoogleGraph@index');
 
 Route::get('/matrixJadwal', 'MatrixJadwalController@index');
+
+
+
+Route::get('/jadwal', 'JadwalController@index');
+Route::get('/jadwal/tambah','JadwalController@tambah');
+Route::post('/jadwal/store','JadwalController@store');
+Route::get('/jadwal/edit/{id}','JadwalController@edit');
+Route::post('/jadwal/update','JadwalController@update');
+Route::get('/jadwal/hapus/{id}','JadwalController@hapus');

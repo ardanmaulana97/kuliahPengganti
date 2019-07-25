@@ -1,4 +1,9 @@
 @extends('layouts.app')
+
+@section('headerlink')
+  
+
+@endsection
 @section('title') Jadwal @endsection 
 
 
@@ -25,19 +30,8 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-        <div class="card-body">
-          <div class="callout callout-info bg-info">
-            <h5>Selamat Datang 
-                @if(\Auth::user())
-                {{Auth::user()->name}}
-                @endif
-            </h5>
 
-            <p>Untuk menggunakan Sistem Kuliah Pengganti harap diperhatikan bagian-bagian data inti yang perlu dipersiapkan sebelumnya sebelum siap digunakan.</p>
-          </div>    
-        </div>
-
-        {{-- notifikasi form validasi --}}
+    {{-- notifikasi form validasi --}}
         @if ($errors->has('file'))
         <span class="invalid-feedback" role="alert">
           <strong>{{ $errors->first('file') }}</strong>
@@ -55,44 +49,78 @@
     <div class="content">
       <div class="container-fluid">
         <!--@yield('content')-->
+                    
         <!----------------- --------------------->
-        <div class="row">
-            <div class="col-xs-12">
-              <div class="box">
-                <div class="box-header">
-                  <h3 class="box-title">Jadwal Semester 
-                    <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#importExcel">IMPORT EXCEL</button>
-                    <a href="/jadwal/export_excel" class="btn btn-block btn-success" target="_blank">EXPORT EXCEL</a>
-                  </h3>
+        <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Konfigurasi Jadwal Semester Departemen Ilmu Komputer</h3>
+
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Import Jadwal Semester</label>
+                  <button type="button" class="btn btn-block btn-primary btn-sm" data-toggle="modal" data-target="#importExcel">IMPORT EXCEL</button>
                 </div>
-                <!-- /.box-header -->
-                
-                <div class="box-body">
-                  <table id="dataKurikulum" class="table table-bordered table-hover">
-                    <thead>
-                      <tr>                        
-                        <th>hari</th>
-                        <th>waktuMulai</th>
-                        <th>waktuSelesai</th>
-                        <th>namaMatkul</th>
-                        <th>tipeMatkul</th>
-                        <th>kodeMatkul</th>
-                        <th>paralel</th>
-                        <th>pjMatkul</th>
-                        <th>lokasi</th>
-                        <th>namaRuang</th>
-                        <th>kapasitasRuang</th>
-                        <th>pesertaMatkul</th>
-                        <th>semester</th>
-                        <th>aksi</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                     <?php foreach ($jadwal as $s):  ?>
-                      <tr>
+                <div class="col-md-6">
+                  <label>Export Jadwal Semester</label>
+                  <a href="/jadwal/export_excel" class="btn btn-block btn-success btn-sm" href="#" role="button" target="_blank">EXPORT EXCEL</a>
+                </div>
+              </div>  
+            <div class="row">
+              
+              <!-- /.col -->
+              <div class="col-md-6">
+                <!-- /.form-group -->
+                <div class="form-group">
+                  <label>Pilih Semester</label>
+                  <select class="form-control select2" style="width: 100%;">
+                    <option selected="selected">Semester Ganjil 2019/2020</option>
+                    <option>Semester Genap 2019/2020</option>
+                    <option disabled="disabled">Semester Ganjil 2018/2019</option>
+                    <option disabled="disabled">Semester Genap 2018/2029</option>
+                  </select>
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            <a href="/jadwal/tambah"> + Tambah 1 Jadwal Baru</a>
+            </div>
+          <!-- /.card-body -->
+            <div class="card-body">
+              <table id="example1" class="table table-bordered table-striped display nowrap">
+                <thead>
+                <tr>
+                        <th>Hari</th>
+                        <th>Mulai</th>
+                        <th>Selesai</th>
+                        <th>Nama Matkul</th>
+                        <th>Tipe</th>
+                        <th>Kode</th>
+                        <th>Paralel</th>
+                        <th>Penanggung Jawab</th>
+                        <th>Lokasi</th>
+                        <th>Ruang</th>
+                        <th>Kapasitas</th>
+                        <th>Peserta</th>
+                        <th>Semester</th>
+                        <th>Semester Jadwal</th>
+                        <th>Aksi</th>
+                      
+                </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($jadwal as $s):  ?>
+                <tr>
                         <td>{{$s->hari}}</td>
-                        <td>{{$s->waktuMulai}}</td>
-                        <td>{{$s->waktuSelesai}}</td>
+                        <td>{{substr($s->waktuMulai, -8, -3)}}</td>
+                        <td>{{substr($s->waktuSelesai, -8, -3)}}</td>
+                        <!-- substr($s->waktuSelesai, -11, 3)
+                        substr ($getstring->string, -4) -->
                         <td>{{$s->namaMatkul}}</td>
                         <td>{{$s->tipeMatkul}}</td>
                         <td>{{$s->kodeMatkul}}</td>
@@ -103,53 +131,56 @@
                         <td>{{$s->kapasitasRuang}}</td>
                         <td>{{$s->pesertaMatkul}}</td>
                         <td>{{$s->semester}}</td>
-    
-                        
+                        <td>{{$s->semesterJadwal}}</td>
                         <td>
-                              <span class="label label-danger"><i class="fa fa-trash"> Delete </i></span>
-                              <span class="label label-success"><i class="fa fa-pencil-square-o"> Edit </i></span>   
-                            
-                        </td>       
-                      </tr>
-                      <?php endforeach  ?> 
-                    </tbody>
-                  </table>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
-
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-
-          <!-- Modal -->
+                          <a href="/jadwal/edit/{{ $s->id }}">Edit</a>
+                          |
+                          <a href="/jadwal/hapus/{{ $s->id }}">Hapus</a>
+                        </td>
+                
+                </tr>
+                  <?php endforeach  ?> 
+                
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        <!-------------- --------------->
+        <!-- Modal -->
           <!-- Import Excel -->
-          <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialogs" role="document">
+          <div class="modal fade" id="importExcel">
+            <div class="modal-dialog" role="document">
               <form method="post" action="/jadwal/import_excel" enctype="multipart/form-data">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
-                  </div>
-                  <div class="modal-body">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Import Jadwal</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
 
-                    {{ csrf_field() }}
+                  {{ csrf_field() }}
+
 
                     <label>Pilih file excel</label>
                     <div class="form-group">
                       <input type="file" name="file" required="required">
                     </div>
 
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Import</button>
-                  </div>
                 </div>
-              </form>
+                <div class="modal-footer justify-content-between">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Import</button>
+                </div>
+              </div>
+            </form>
+              <!-- /.modal-content -->
             </div>
+            <!-- /.modal-dialog -->
           </div>
           <!--end of Modal -->
-        <!-------------- --------------->
-
 
 
 
@@ -162,20 +193,45 @@
   <!-- /.content-wrapper -->
 @endsection
 
+
 @section('script')
 
-    <script src="{{ URL::asset('admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ URL::asset('admin/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
-    <script>
-      $(function () {
+<!-- DataTables -->
+<!-- <script src="{{ asset('lte/plugins/1/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('lte/plugins/1/jquery-3.3.1.js') }}"></script>
+ -->
 
-        $('#dataKurikulum').DataTable({"pageLength": 50});
+<script src="{{ asset('lte/plugins/datatables/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('lte/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
+<!-- FastClick -->
+<script src="{{ asset('lte/plugins/fastclick/fastclick.js') }}"></script>
 
-      });
+<script src="{{ asset('lte/dist/js/demo.js') }}"></script>
 
+<script>
+  $(function () {
+    // $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "scrollX": true,
+    });
+  });
 
-      
+  // $('#example1').dataTable( {
+  //   scrollY:        200,
+  //   deferRender:    true,
+  //   scroller:       true
+  // } );
 
-    </script>
-
+  $(document).ready(function() {
+    $('#example1').DataTable( {
+        "scrollX": true
+    } );
+} );
+</script>
 @endsection

@@ -21,7 +21,11 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="#"><b>Kuliah</b>Pengganti</a>
+    <a href="#"><b>Kuliah</b>Pengganti</a>  
+    <!--
+    <img src="{{ asset('lte/dist/img/penggantiLogo.png') }}" style="opacity: .8" alt="AdminLTE Logo" class="brand-image">
+  -->
+
   </div>
   <!-- /.login-logo -->
   <div class="card">

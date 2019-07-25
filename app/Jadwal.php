@@ -22,6 +22,7 @@ class Jadwal extends Model
         'kapasitasRuang',
         'pesertaMatkul',
         'semester',
+        'semesterJadwal',
 		];
 }
 

@@ -30,6 +30,7 @@ class JadwalImport implements ToModel
             'kapasitasRuang'    => $row[10], 
             'pesertaMatkul'     => $row[11], 
             'semester'          => $row[12],
+            'semesterJadwal'    => $row[13],
         ]);
     }
 }
